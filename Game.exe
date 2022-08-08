@@ -1,0 +1,90 @@
+# 1 "C:\\game15\\Game.cpp"
+# 1 "C:\\game15//"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "C:\\game15\\Game.cpp"
+# 1 "C:\\game15\\Game.h" 1
+       
+# 1 "C:\\game15\\Piece.h" 1
+
+       
+class Piece
+{
+public:
+ int x, y, pos_x, pos_y, size_x, size_y, num;
+ Piece(int x, int y, int pos_x, int pos_y, int num);
+ Piece();
+ bool check_complete(int x, int y, int pos_x, int pos_y) {
+  if (x = pos_x && y = pos_y)
+  {
+   return true;
+  }
+  else
+  {
+   return false;
+  }
+ }
+};
+# 3 "C:\\game15\\Game.h" 2
+
+class Game
+{
+public:
+ Piece my_map[4][4];
+ Game();
+
+ void GetEmptyPiece();
+
+ int EmptyPiece_i;
+ int EmptyPiece_j;
+
+ void Swap(Piece&);
+};
+# 2 "C:\\game15\\Game.cpp" 2
+
+Game::Game()
+{
+
+
+ for (int i = 0; i < 4; ++i)
+ {
+  for (int j = 0; j < 4; ++j)
+  {
+   Piece buffer(1, 1, 1, 1, (i * 4) + j);
+   my_map[i][j] = buffer;
+  }
+ }
+
+
+ for (int i = 0; i < 4; ++i)
+ {
+  for (int j = 0; j < 4; ++j)
+  {
+   my_map[i][j].pos_x = i * 100;
+   my_map[i][j].pos_y = j * 100;
+
+  }
+ }
+}
+void Game::GetEmptyPiece()
+{
+ for (int i = 0; i < 4; ++i)
+ {
+  for (int j = 0; j < 4; ++j)
+  {
+   if (my_map[i][j].num == 0)
+   {
+    EmptyPiece_i = i;
+    EmptyPiece_j = j;
+    break;
+   }
+  }
+ }
+}
+void Game::Swap(Piece& ToBeSwaped)
+{
+ Piece buffer(0, 0, 0, 0, 0);
+ buffer.num = ToBeSwaped.num;
+ ToBeSwaped.num = my_map[EmptyPiece_i][EmptyPiece_j].num;
+ my_map[EmptyPiece_i][EmptyPiece_j].num = buffer.num;
+}
